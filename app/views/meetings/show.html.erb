@@ -7,6 +7,34 @@
   <dd><%= @meeting.held_on %></dd>
 
   <dt>Course</dt>
-  <dd><%= @meeting.course_id %></dd>
+ <% course = Course.find(@meeting.course_id) %>
+  <%= "#{course.department}-#{course.number} #{course.title}" %>
+
 
 </dl>
+
+<% @meetings.each do |meeting| %>
+ 
+ 
+  <p> <%= meeting.id.to_s%> &nbsp;&nbsp;&nbsp;&nbsp;<%= meeting.held_on.to_s%></p>
+   
+ <% end %>
+
+<div class="col-md-6">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Students</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% @attendances.each do |attendance| %>
+      <% student = Student.find(attendance.student_id) %>
+      <tr>
+          <td><%= "#{student.first_name} #{student.last_name}" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
